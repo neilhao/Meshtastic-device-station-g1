@@ -33,6 +33,9 @@ typedef enum _HardwareModel {
     HardwareModel_ANDROID_SIM = 38,
     HardwareModel_DIY_V1 = 39,
     HardwareModel_RAK11200 = 40,
+    HardwareModel_NANO_G1 = 41,
+    HardwareModel_DR_DEV = 43,
+    HardwareModel_STATION_G1 = 45, 
     HardwareModel_PRIVATE_HW = 255
 } HardwareModel;
 

@@ -38,6 +38,8 @@ jobs:
           - board: rak4631_5005
           - board: rak4631_19003
           - board: t-echo
+          - board: nano-g1
+          - board: meshtastic-dr-dev
   
     runs-on: ubuntu-latest
     steps:
@@ -103,6 +105,8 @@ jobs:
           - board: heltec-v2.1
           - board: tbeam0.7
           - board: meshtastic-diy-v1
+          - board: nano-g1
+          - board: meshtastic-dr-dev
     
     runs-on: ubuntu-latest
     steps:

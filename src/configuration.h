@@ -114,6 +114,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
+#ifndef TTGO_T_ECHO
+#define GPS_UBLOX
+#endif
+
 //
 // Standard definitions for !ESP32 targets
 //
@@ -149,6 +153,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define GPS_BAUDRATE 9600
 
+#ifndef GPS_THREAD_INTERVAL
+#define GPS_THREAD_INTERVAL 100
+#endif
+
 #if defined(TBEAM_V10)
 // This string must exactly match the case used in release file names or the android updater won't work
 #define HW_VENDOR HardwareModel_TBEAM
@@ -160,6 +168,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif defined(DIY_V1)
 // This string must exactly match the case used in release file names or the android updater won't work
 #define HW_VENDOR HardwareModel_DIY_V1
+
+#elif defined(DR_DEV)
+// This string must exactly match the case used in release file names or the android updater won't work
+#define HW_VENDOR HardwareModel_DR_DEV
 
 #elif defined(RAK_11200)
 // This string must exactly match the case used in release file names or the android updater won't work
@@ -229,6 +241,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif defined(TTGO_T_ECHO)
 
 #define HW_VENDOR HardwareModel_T_ECHO
+
+#elif defined(NANO_G1)
+
+#define HW_VENDOR HardwareModel_NANO_G1
+
+#elif defined(STATION_G1)
+
+#define HW_VENDOR HardwareModel_STATION_G1
 
 #elif NRF52_SERIES
 

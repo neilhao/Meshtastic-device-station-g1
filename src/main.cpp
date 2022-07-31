@@ -226,10 +226,6 @@ class ButtonThread : public OSThread
 
 #ifdef BUTTON_PIN_TOUCH
         userButtonTouch = OneButton(BUTTON_PIN_TOUCH, true, true);
-#ifdef INPUT_PULLUP_SENSE
-        // Some platforms (nrf52) have a SENSE variant which allows wake from sleep - override what OneButton did
-        pinMode(BUTTON_PIN_TOUCH, INPUT_PULLUP_SENSE);
-#endif
         userButtonTouch.attachClick(touchPressed);
         userButtonTouch.attachDuringLongPress(touchPressedLong);
         userButtonTouch.attachDoubleClick(touchDoublePressed);
@@ -408,6 +404,12 @@ void setup()
 
     initDeepSleep();
 
+    // Testing this fix für erratic T-Echo boot behaviour    
+#if defined(TTGO_T_ECHO) && defined(PIN_EINK_PWR_ON)
+    pinMode(PIN_EINK_PWR_ON, OUTPUT);
+    digitalWrite(PIN_EINK_PWR_ON, HIGH);
+#endif
+
 #ifdef VEXT_ENABLE
     pinMode(VEXT_ENABLE, OUTPUT);
     digitalWrite(VEXT_ENABLE, 0); // turn on the display power
@@ -565,6 +567,7 @@ void setup()
 
     // ONCE we will factory reset the GPS for bug #327
     if (gps && !devicestate.did_gps_reset) {
+        DEBUG_MSG("GPS FactoryReset requested\n");
         if (gps->factoryReset()) { // If we don't succeed try again next time
             devicestate.did_gps_reset = true;
             nodeDB.saveToDisk();
@@ -714,6 +717,8 @@ void powerCommandsCheck()
 #ifndef NO_ESP32
         DEBUG_MSG("Rebooting for update\n");
         ESP.restart();
+#elif NRF52_SERIES
+    NVIC_SystemReset();
 #else
         DEBUG_MSG("FIXME implement reboot for this platform");
 #endif
